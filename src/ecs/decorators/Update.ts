@@ -1,5 +1,5 @@
-import { all_ecs_update } from "../../../index";
 import { ComponentUpdateData } from "../ComponentUpdateData";
+import { MetadataKey } from "../../reflect/MetadataKey";
 
 export function Update(option?: { period: number }) {
     console.log('Update装饰器开始装载')
@@ -21,7 +21,7 @@ export function Update(option?: { period: number }) {
                 return result
             }
         }
-        all_ecs_update.set(target.constructor.name, new ComponentUpdateData(descriptor.value, option?.period ?? 40))
+        Reflect.defineMetadata(MetadataKey.ECSComponentUpdate, new ComponentUpdateData(descriptor.value, option?.period ?? 40), target.constructor)
         console.log('Update装饰器装载完毕')
     }
 }

@@ -6,6 +6,8 @@ export class ComponentUpdateData {
 
     public lastUpdateTimestamp: number | undefined;
 
+    public deltaTime: number | undefined;
+
     public period: number;
 
     constructor(update: Function, period: number) {
