@@ -2,7 +2,7 @@ import { all_ecs_update } from "../../../index";
 import { MetadataKey } from "../../reflect/MetadataKey";
 
 
-export function Component() {
+export function Component(): ClassDecorator {
     console.log('Component装饰器开始装载')
     return function (target: any) {
         console.log('Component装饰器装载中')

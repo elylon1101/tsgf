@@ -1,9 +1,9 @@
 import { ComponentUpdateData } from "../ComponentUpdateData";
 import { MetadataKey } from "../../reflect/MetadataKey";
 
-export function Update(option?: { period: number }) {
+export function Update(option?: { period: number }): MethodDecorator {
     console.log('Update装饰器开始装载')
-    return function (target: any, propertyKey: string, descriptor: PropertyDescriptor) {
+    return function (target: any, propertyKey: string | symbol, descriptor: PropertyDescriptor) {
         console.log('Update装饰器装载中')
         const originalMethod = descriptor.value;
         if (originalMethod.constructor.name === 'AsyncFunction') {
