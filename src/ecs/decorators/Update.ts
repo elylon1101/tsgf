@@ -1,4 +1,5 @@
-import { all_ecs_update } from "../../index";
+import { all_ecs_update } from "../../../index";
+import { ComponentUpdateData } from "../ComponentUpdateData";
 
 export function Update(option?: { period: number }) {
     console.log('Update装饰器开始装载')
@@ -20,7 +21,7 @@ export function Update(option?: { period: number }) {
                 return result
             }
         }
-        all_ecs_update.set(target.constructor.name, descriptor.value)
+        all_ecs_update.set(target.constructor.name, new ComponentUpdateData(descriptor.value, option?.period ?? 40))
         console.log('Update装饰器装载完毕')
     }
 }
