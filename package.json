@@ -1,5 +1,5 @@
 {
-  "name": "tgsf",
+  "name": "tsgf",
   "version": "1.0.0",
   "description": "ts版本的分布式游戏框架（typescript game server distributed framework）",
   "main": "index.js",
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/elylon1101/tgsf.git"
+    "url": "git+https://github.com/elylon1101/tsgf.git"
   },
   "keywords": [
     "ts版本的分布式游戏框架",
@@ -24,9 +24,9 @@
   "author": "elylon",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/elylon1101/tgsf/issues"
+    "url": "https://github.com/elylon1101/tsgf/issues"
   },
-  "homepage": "https://github.com/elylon1101/tgsf#readme",
+  "homepage": "https://github.com/elylon1101/tsgf#readme",
   "devDependencies": {
     "@types/node": "^18.16.1",
     "ts-node": "^10.9.1",
