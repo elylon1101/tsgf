@@ -9,12 +9,12 @@ export class WebSocket {
     private wss: WebSocketServer;
 
     constructor() {
-        this.log.debug('webSocketServer start')
+        this.log.info('webSocketServer start')
         this.wss = new WebSocketServer({
             port: 8080
         });
         this.wss.on('connection', (ws) => {
-            this.log.debug(`webSocketServer started listen port 8080`)
+            this.log.info(`webSocketServer started listen port 8080`)
             ws.on('message', (data) => {
                 this.log.debug('received: %s', data.toString());
                 ws.send('收到恢复 over');
