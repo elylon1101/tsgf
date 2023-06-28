@@ -1,5 +1,12 @@
-export interface ServiceHandler {
-    request(): Promise<void>;
+import { Request } from "./Request";
+import { Broadcast } from "./Broadcast";
+import { Response } from "./Response";
 
-    broadcast(): Promise<void>;
+export interface ServiceHandler {
+
+    request(request: Request): Promise<void>;
+
+    response(response: Response): Promise<void>;
+
+    broadcast(broadcast: Broadcast): Promise<void>;
 }
