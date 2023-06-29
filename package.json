@@ -2,7 +2,7 @@
   "name": "tsgf",
   "version": "1.0.0",
   "description": "ts版本的分布式游戏框架（typescript game server distributed framework）",
-  "main": "index.js",
+  "main": "src/Application.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
