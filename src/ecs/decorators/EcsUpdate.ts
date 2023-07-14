@@ -1,7 +1,7 @@
 import { ComponentUpdateData } from "../ComponentUpdateData";
 import { MetadataKey } from "../../reflect/MetadataKey";
 
-export function Update(option?: { period: number }): MethodDecorator {
+export function EcsUpdate(option?: { period: number }): MethodDecorator {
     return function (target: any, propertyKey: string | symbol, descriptor: PropertyDescriptor) {
         const originalMethod = descriptor.value;
         if (originalMethod.constructor.name === 'AsyncFunction') {

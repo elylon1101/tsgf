@@ -1,11 +1,11 @@
-import { Component } from "../../src/ecs/decorators/Component";
-import { Update } from "../../src/ecs/decorators/Update";
+import { EcsComponent } from "../../src/ecs/decorators/EcsComponent";
+import { EcsUpdate } from "../../src/ecs/decorators/EcsUpdate";
 import { ApplicationContext } from "../../src/ApplicationContext";
 
-@Component()
+@EcsComponent()
 export class TestComponent {
 
-    @Update({period: 3000})
+    @EcsUpdate({period: 3000})
     public update() {
         ApplicationContext.getIns().logger.log('TestComponent.update')
     }

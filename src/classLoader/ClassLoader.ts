@@ -1,5 +1,3 @@
-import { Class } from "./Class";
-
 export interface ClassLoader {
-    loadClass(): Class;
+    loadClass(path: string | RegExp): void;
 }

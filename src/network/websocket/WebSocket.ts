@@ -1,17 +1,18 @@
 import { WebSocketServer } from 'ws';
 import { ApplicationContext } from "../../ApplicationContext";
 import { ILog } from "../../log/ILog";
+import { Network } from "../Network";
 
-export class WebSocket {
+export class WebSocket implements Network {
 
     private log: ILog = ApplicationContext.getIns().logger;
 
     private wss: WebSocketServer;
 
-    constructor() {
+    constructor(context: ApplicationContext) {
         this.log.info('webSocketServer start')
         this.wss = new WebSocketServer({
-            port: 8080
+            port: context.wsPort
         });
         this.wss.on('connection', (ws) => {
             this.log.info(`webSocketServer started listen port 8080`)
@@ -20,5 +21,6 @@ export class WebSocket {
                 ws.send('收到恢复 over');
             })
         })
+        context.netWork = this;
     }
 }
