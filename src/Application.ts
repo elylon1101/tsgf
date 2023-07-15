@@ -5,9 +5,10 @@ import { ConsoleLog } from "./log/ConsoleLog";
 import { LogLevel } from "./log/LogLevel";
 import { ComponentUpdateData } from "./ecs/ComponentUpdateData";
 import { PathClassLoader } from "./classLoader/PathClassLoader";
+import { ControllerData } from "./dispatch/ControllerData";
 
 export const all_ecs_update: Map<any, ComponentUpdateData> = new Map()
-export const CONTROLLERS: Map<any, any[]> = new Map()
+export const CONTROLLERS: Map<any, ControllerData[]> = new Map()
 
 /**
  * 框架入口
