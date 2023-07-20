@@ -1,6 +1,6 @@
+import { ApplicationContext } from "../../src/ApplicationContext";
 import { EcsComponent } from "../../src/ecs/decorators/EcsComponent";
 import { EcsUpdate } from "../../src/ecs/decorators/EcsUpdate";
-import { ApplicationContext } from "../../src/ApplicationContext";
 
 @EcsComponent()
 export class TestComponent {

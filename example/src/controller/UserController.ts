@@ -5,7 +5,7 @@ import { RequestMapping } from "../../../src/dispatch/decorators/RequestMapping"
 export class UserController {
 
     @RequestMapping('getUserList')
-    public getUserList(){
+    public getUserList() {
 
     }
 }

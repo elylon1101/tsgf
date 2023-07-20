@@ -1,7 +1,7 @@
 import { Logger } from "log4js";
 import { Controller } from "../../../src/dispatch/decorators/Controller";
-import { Log } from "../../../src/log/decorators/Log";
 import { RequestMapping } from "../../../src/dispatch/decorators/RequestMapping";
+import { Log } from "../../../src/log/decorators/Log";
 
 @Controller('order')
 export class OrderController {
@@ -12,8 +12,9 @@ export class OrderController {
     public test() {
         this.tsLog.info('test')
     }
+
     @RequestMapping('orderList')
-    public getOrderList(){
+    public getOrderList() {
 
     }
 }
