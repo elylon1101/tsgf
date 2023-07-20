@@ -3,15 +3,6 @@ import { ClassLoader } from "./ClassLoader";
 import { readdirSync, statSync } from "fs";
 
 export abstract class AbstractClassLoader implements ClassLoader {
-
-    /**
-     * todo 通过自动的路径来加载
-     * @param uri 路径
-     */
-    loadClass(uri: string | RegExp) {
-
-    }
-
     loadAll(uri?: string) {
         const filePath = join(uri ?? process.cwd());
         const files = readdirSync(filePath);

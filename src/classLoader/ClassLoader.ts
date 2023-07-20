@@ -1,3 +1,6 @@
 export interface ClassLoader {
-    loadClass(path: string | RegExp): void;
+    /**
+     * 加载所有项目文件
+     */
+    loadAll(): void
 }
