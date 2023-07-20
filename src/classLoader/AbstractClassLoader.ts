@@ -1,6 +1,6 @@
-import { ClassLoader } from "./ClassLoader";
 import * as fs from "fs";
 import path from "path";
+import { ClassLoader } from "./ClassLoader";
 
 export abstract class AbstractClassLoader implements ClassLoader {
 
@@ -21,7 +21,10 @@ export abstract class AbstractClassLoader implements ClassLoader {
             if (stats.isDirectory()) {
                 this.loadAll(path.join(filePath, file));
             } else if (stats.isFile() && ['.js', '.ts'].includes(path.extname(file))) {
-                require(fullPath);
+                try {
+                    require(fullPath);
+                } catch (e) {
+                }
             }
         });
     }

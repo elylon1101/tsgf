@@ -1,11 +1,13 @@
+import { Logger } from "log4js";
 import { WebSocketServer } from 'ws';
 import { ApplicationContext } from "../../ApplicationContext";
-import { ILog } from "../../log/ILog";
+import { FiLog } from "../../log/decorators/FiLog";
 import { Network } from "../Network";
 
 export class WebSocket implements Network {
 
-    private log: ILog = ApplicationContext.getIns().logger;
+    @FiLog
+    private log: Logger;
 
     private wss: WebSocketServer;
 

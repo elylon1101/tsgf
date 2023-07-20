@@ -1,5 +1,5 @@
-import { Request } from "./Request";
 import { Broadcast } from "./Broadcast";
+import { Request } from "./Request";
 import { Response } from "./Response";
 
 export interface ServiceHandler {

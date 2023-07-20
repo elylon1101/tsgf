@@ -9,7 +9,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "tsgf": "file:../src"
   },
   "devDependencies": {
     "ts-node": "^10.9.1"

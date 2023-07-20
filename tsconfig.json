@@ -8,7 +8,7 @@
     "strict": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
-//    "strictPropertyInitialization": false,
+    "strictPropertyInitialization": false,
     "declaration": true,
     "lib": [
       "ES2020"

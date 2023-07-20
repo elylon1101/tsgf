@@ -1,5 +1,5 @@
-import { ComponentUpdateData } from "../ComponentUpdateData";
 import { MetadataKey } from "../../reflect/MetadataKey";
+import { ComponentUpdateData } from "../ComponentUpdateData";
 
 export function EcsUpdate(option?: { period: number }): MethodDecorator {
     return function (target: any, propertyKey: string | symbol, descriptor: PropertyDescriptor) {

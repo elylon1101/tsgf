@@ -1,5 +1,4 @@
-import { ILog } from "./log/ILog";
-import { ConsoleLog } from "./log/ConsoleLog";
+import { Logger } from "log4js";
 import { Network } from "./network/Network";
 
 /**
@@ -7,9 +6,11 @@ import { Network } from "./network/Network";
  */
 export class ApplicationContext {
 
-    private static instance: ApplicationContext;
+    private static _instance: ApplicationContext;
 
-    private _logger: ILog = new ConsoleLog();
+    public tsgfLogger: Logger;
+
+    public logger: Logger;
 
     private _wsPort: number = 1101;
 
@@ -19,18 +20,18 @@ export class ApplicationContext {
     }
 
     public static getIns() {
-        if (!this.instance) {
-            this.instance = new ApplicationContext();
+        if (!this._instance) {
+            this._instance = new ApplicationContext();
         }
-        return this.instance;
+        return this._instance;
     }
 
-    get logger(): ILog {
-        return this._logger;
+    static get instance(): ApplicationContext {
+        return this._instance;
     }
 
-    set logger(value: ILog) {
-        this._logger = value;
+    static set instance(value: ApplicationContext) {
+        this._instance = value;
     }
 
     get wsPort(): number {

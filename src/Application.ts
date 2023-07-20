@@ -1,10 +1,9 @@
-import { ApplicationContext } from "./ApplicationContext";
+import * as log4js from "log4js"
 import "reflect-metadata";
-import { WebSocket } from "./network/websocket/WebSocket";
-import { ConsoleLog } from "./log/ConsoleLog";
-import { LogLevel } from "./log/LogLevel";
-import { ComponentUpdateData } from "./ecs/ComponentUpdateData";
+import { ApplicationContext } from "./ApplicationContext";
 import { PathClassLoader } from "./classLoader/PathClassLoader";
+import { ComponentUpdateData } from "./ecs/ComponentUpdateData";
+import { WebSocket } from "./network/websocket/WebSocket";
 
 export const all_ecs_update: Map<any, ComponentUpdateData> = new Map()
 export const CONTROLLERS: Map<any, any[]> = new Map()
@@ -25,7 +24,19 @@ export class Application {
         // 2.配置处理
         context.wsPort = 1101
         // 2.1日志模块
-        context.logger = new ConsoleLog().setLevel(LogLevel.debug);
+        log4js.configure({
+            appenders: {
+                console: {type: "console", layout: {type: "pattern", pattern: "%[[%f:%l] [%d] [%p] %c - %] %m%n"}},
+                app: {type: "file", filename: "application.log"},
+            },
+            categories: {
+                default: {appenders: ["console"], level: "trace", enableCallStack: true},
+                tsgf: {appenders: ["console"], level: "all", enableCallStack: true}
+            },
+
+        })
+        context.tsgfLogger = log4js.getLogger('tsgf');
+        context.logger = log4js.getLogger('default');
         // 3.启动网络模块
         new WebSocket(context);
         // 根据需要启动ecs的相关生命周期函数
@@ -38,5 +49,14 @@ export class Application {
                 }
             })
         }, 10)
+        // 注册钩子函数
+        process.on('exit', (code) => {
+            context.logger.info(`About to exit with code: ${code}`)
+        });
+        // 监听程序关闭
+        process.on('SIGINT', () => {
+            context.logger.info('接收到 SIGINT 信号，开始优雅停止...');
+            process.exit(0);
+        });
     }
 }
