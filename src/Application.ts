@@ -2,11 +2,12 @@ import * as log4js from "log4js"
 import "reflect-metadata";
 import { ApplicationContext } from "./ApplicationContext";
 import { PathClassLoader } from "./classLoader/PathClassLoader";
+import { ControllerData } from "./dispatch/ControllerData";
 import { ComponentUpdateData } from "./ecs/ComponentUpdateData";
 import { WebSocket } from "./network/websocket/WebSocket";
 
 export const all_ecs_update: Map<any, ComponentUpdateData> = new Map()
-export const CONTROLLERS: Map<any, any[]> = new Map()
+export const CONTROLLERS: Map<any, ControllerData[]> = new Map()
 
 /**
  * 框架入口
