@@ -15,6 +15,6 @@ export class OrderController {
 
     @RequestMapping('orderList')
     public getOrderList() {
-
+        this.tsLog.info('getOrderList exec')
     }
 }
