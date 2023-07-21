@@ -18,9 +18,17 @@ export class WebSocket implements Network {
         });
         this.wss.on('connection', (ws) => {
             this.log.info(`webSocketServer started listen port 8080`)
-            ws.on('message', (data) => {
-                this.log.debug('received: %s', data.toString());
-                ws.send('收到恢复 over');
+            ws.on('message', async (data) => {
+                let sendData = data.toString();
+                let encoder = context.encoder.encode(sendData);
+                this.log.debug('received', encoder);
+                let handler = context.handlers.get(encoder.route);
+                let res = {};
+                if (handler) {
+                    res = await handler(encoder.data);
+                    this.log.debug('exec res', res);
+                }
+                ws.send(context.decoder.decode(res));
             })
         })
         context.netWork = this;

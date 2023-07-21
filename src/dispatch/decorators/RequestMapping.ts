@@ -8,6 +8,9 @@ export function RequestMapping(param?: RequestMappingDecoratorsType): MethodDeco
         const originalMethod = descriptor.value;
         if (originalMethod.constructor.name === 'AsyncFunction') {
             descriptor.value = async function (...args: any[]) {
+                const paramtypes = Reflect.getMetadata('design:paramtypes', target, propertyKey);
+                const returntype = Reflect.getMetadata('design:returntype', target, propertyKey);
+                console.log(paramtypes, returntype)
                 return await originalMethod.apply(this, args)
             }
         } else {

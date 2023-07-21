@@ -1,3 +1,7 @@
+import { Request } from "../Request";
+
 export interface Encoder {
-    encode(msg: any): void
+
+    encode(msg: any): Request
+
 }

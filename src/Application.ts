@@ -2,12 +2,13 @@ import * as log4js from "log4js"
 import "reflect-metadata";
 import { ApplicationContext } from "./ApplicationContext";
 import { PathClassLoader } from "./classLoader/PathClassLoader";
-import { ControllerData } from "./dispatch/ControllerData";
 import { ComponentUpdateData } from "./ecs/ComponentUpdateData";
 import { WebSocket } from "./network/websocket/WebSocket";
+import { JsonEncoder } from "./network/codec/JsonEncoder";
+import { JsonDecoder } from "./network/codec/JsonDecoder";
 
 export const all_ecs_update: Map<any, ComponentUpdateData> = new Map()
-export const CONTROLLERS: Map<any, ControllerData[]> = new Map()
+export const HANDLERS: Map<string, Function> = new Map()
 
 /**
  * 框架入口
@@ -22,6 +23,8 @@ export class Application {
         new PathClassLoader().loadAll()
         // 1.创建上下文
         let context: ApplicationContext = ApplicationContext.getIns();
+
+        context.handlers = HANDLERS;
         // 2.配置处理
         context.wsPort = 1101
         // 2.1日志模块
@@ -38,6 +41,9 @@ export class Application {
         })
         context.tsgfLogger = log4js.getLogger('tsgf');
         context.logger = log4js.getLogger('default');
+        // 初始化编解码器
+        context.encoder = new JsonEncoder()
+        context.decoder = new JsonDecoder()
         // 3.启动网络模块
         new WebSocket(context);
         // 根据需要启动ecs的相关生命周期函数

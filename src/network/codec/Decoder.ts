@@ -1,3 +1,5 @@
+import { Response } from "../Response";
+
 export interface Decoder {
-    decode(msg: any): void
+    decode(msg: any): string
 }

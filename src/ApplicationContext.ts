@@ -1,5 +1,7 @@
 import { Logger } from "log4js";
 import { Network } from "./network/Network";
+import { Decoder } from "./network/codec/Decoder";
+import { Encoder } from "./network/codec/Encoder";
 
 /**
  * 框架应用上下文
@@ -12,9 +14,15 @@ export class ApplicationContext {
 
     public logger: Logger;
 
-    private _wsPort: number = 1101;
+    public wsPort: number = 1101;
 
-    private _netWork: Network = {};
+    public netWork: Network;
+
+    public decoder: Decoder;
+
+    public encoder: Encoder;
+
+    public handlers: Map<any, Function>;
 
     private constructor() {
     }
@@ -34,19 +42,4 @@ export class ApplicationContext {
         this._instance = value;
     }
 
-    get wsPort(): number {
-        return this._wsPort;
-    }
-
-    set wsPort(value: number) {
-        this._wsPort = value;
-    }
-
-    get netWork(): Network {
-        return this._netWork;
-    }
-
-    set netWork(value: Network) {
-        this._netWork = value;
-    }
 }

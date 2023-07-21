@@ -2,6 +2,11 @@ import { RequestMappingData } from "./RequestMappingData";
 
 export class ControllerData {
 
-    constructor(private path: string, private handle: RequestMappingData) {
+    path: string
+    handle: RequestMappingData
+
+    constructor(path: string, handle: RequestMappingData) {
+        this.path = path
+        this.handle = handle
     }
 }

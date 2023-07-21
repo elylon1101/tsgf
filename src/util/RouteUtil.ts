@@ -1,4 +1,5 @@
 import { ControllerDecoratorsType, RequestMappingDecoratorsType } from "../dispatch/types";
+import { ControllerData } from "../dispatch/ControllerData";
 
 export class RouteUtil {
     public static getRoute(param?: RequestMappingDecoratorsType | ControllerDecoratorsType): string {
