@@ -4,8 +4,8 @@ import { ApplicationContext } from "./ApplicationContext";
 import { PathClassLoader } from "./classLoader/PathClassLoader";
 import { ComponentUpdateData } from "./ecs/ComponentUpdateData";
 import { WebSocket } from "./network/websocket/WebSocket";
-import { JsonEncoder } from "./network/codec/JsonEncoder";
-import { JsonDecoder } from "./network/codec/JsonDecoder";
+import { JsonEncoder } from "./network/message/codec/JsonEncoder";
+import { JsonDecoder } from "./network/message/codec/JsonDecoder";
 
 export const all_ecs_update: Map<any, ComponentUpdateData> = new Map()
 export const HANDLERS: Map<string, Function> = new Map()
@@ -65,5 +65,8 @@ export class Application {
             context.logger.info('接收到 SIGINT 信号，开始优雅停止...');
             process.exit(0);
         });
+        process.on('uncaughtException', (e)=>{
+            context.logger.error('system error', e)
+        })
     }
 }

@@ -1,7 +1,7 @@
 import { Logger } from "log4js";
 import { Network } from "./network/Network";
-import { Decoder } from "./network/codec/Decoder";
-import { Encoder } from "./network/codec/Encoder";
+import { Decoder } from "./network/message/codec/Decoder";
+import { Encoder } from "./network/message/codec/Encoder";
 
 /**
  * 框架应用上下文

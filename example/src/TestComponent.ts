@@ -5,7 +5,7 @@ import { EcsUpdate } from "../../src/ecs/decorators/EcsUpdate";
 @EcsComponent()
 export class TestComponent {
 
-    @EcsUpdate({period: 3000})
+    @EcsUpdate({period: 10000})
     public update() {
         ApplicationContext.getIns().logger.log('TestComponent.update')
     }

@@ -3,6 +3,7 @@ import { WebSocketServer } from 'ws';
 import { ApplicationContext } from "../../ApplicationContext";
 import { FiLog } from "../../log/decorators/FiLog";
 import { Network } from "../Network";
+import { Message } from "../message/Message";
 
 export class WebSocket implements Network {
 
@@ -19,16 +20,21 @@ export class WebSocket implements Network {
         this.wss.on('connection', (ws) => {
             this.log.info(`webSocketServer started listen port 8080`)
             ws.on('message', async (data) => {
-                let sendData = data.toString();
-                let encoder = context.encoder.encode(sendData);
-                this.log.debug('received', encoder);
-                let handler = context.handlers.get(encoder.route);
-                let res = {};
+                this.log.debug('received', data);
+                let encoder = context.decoder.decode(data);
+                this.log.debug('received decode', encoder);
+                let handler = context.handlers.get(encoder.head.route);
+                let res: Message<any> = {
+                    head: {
+                        id: 1,
+                        route: ''
+                    }, payload: undefined
+                };
                 if (handler) {
-                    res = await handler(encoder.data);
+                    res.payload = await handler(encoder.payload, encoder.head);
                     this.log.debug('exec res', res);
                 }
-                ws.send(context.decoder.decode(res));
+                ws.send(context.encoder.encode(res));
             })
         })
         context.netWork = this;
