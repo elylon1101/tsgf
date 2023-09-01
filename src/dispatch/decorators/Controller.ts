@@ -11,6 +11,7 @@ export function Controller(param?: ControllerDecoratorsType): ClassDecorator {
         if (HANDLERS.has(path)) {
             throw Error(`${path} repeat`)
         }
-        HANDLERS.set(path + '/' + requestMapping.path, requestMapping.method)
+        let route = path ? path + '/' + requestMapping.path : requestMapping.path
+        HANDLERS.set(route, requestMapping.method)
     }
 }
