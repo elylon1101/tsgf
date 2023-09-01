@@ -49,6 +49,16 @@ export class Application {
         context.handlers.forEach((value, key, map) => {
             server.implementApi(key, call => value(call))
         })
+        // 根据需要启动ecs的相关生命周期函数
+        setInterval(() => {
+            let now = Date.now();
+            all_ecs_update.forEach(value => {
+                if (value.lastUpdateTimestamp === undefined || now - value.lastUpdateTimestamp >= value.period) {
+                    value.lastUpdateTimestamp = now;
+                    value.update.call(undefined);
+                }
+            })
+        }, 10)
         // 注册钩子函数
         process.on('exit', (code) => {
             context.logger.info(`About to exit with code: ${code}`)
