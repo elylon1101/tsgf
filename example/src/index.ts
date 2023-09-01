@@ -1,8 +1,8 @@
 import { Application } from "../../src/Application";
 import { ApplicationContext } from "../../src/ApplicationContext";
-import { OrderController } from "./controller/OrderController";
+import { serviceProto, ServiceType } from "./protocols/serviceProto";
 
-Application.run().then(() => {
-    new OrderController().test()
+export const server = Application.run<ServiceType>(serviceProto);
+server.start().then(() => {
     ApplicationContext.getIns().logger.info('project started')
 })

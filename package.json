@@ -4,7 +4,9 @@
   "description": "ts版本的分布式游戏框架（typescript game server distributed framework）",
   "main": "src/Application.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "tsrpc-cli dev",
+    "build": "tsrpc-cli build",
+    "doc": "tsrpc-cli doc"
   },
   "repository": {
     "type": "git",
@@ -29,13 +31,13 @@
   "homepage": "https://github.com/elylon1101/tsgf#readme",
   "devDependencies": {
     "@types/node": "^18.16.1",
-    "@types/ws": "^8.5.5",
     "ts-node": "^10.9.1",
+    "tsrpc-cli": "^2.4.5",
     "typescript": "^5.1.3"
   },
   "dependencies": {
     "log4js": "^6.9.1",
     "reflect-metadata": "^0.1.13",
-    "ws": "^8.13.0"
+    "tsrpc": "^3.4.12"
   }
 }

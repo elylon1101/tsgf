@@ -12,7 +12,8 @@
     "declaration": true,
     "lib": [
       "ES2020"
-    ]
+    ],
+    "skipLibCheck": true
   },
   "include": [
     "src/**/*.ts"

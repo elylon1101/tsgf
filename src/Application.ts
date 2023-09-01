@@ -3,9 +3,8 @@ import "reflect-metadata";
 import { ApplicationContext } from "./ApplicationContext";
 import { PathClassLoader } from "./classLoader/PathClassLoader";
 import { ComponentUpdateData } from "./ecs/ComponentUpdateData";
-import { WebSocket } from "./network/websocket/WebSocket";
-import { JsonEncoder } from "./network/message/codec/JsonEncoder";
-import { JsonDecoder } from "./network/message/codec/JsonDecoder";
+import { WsServer } from "tsrpc";
+import { BaseServiceType, ServiceProto } from "tsrpc-proto";
 
 export const all_ecs_update: Map<any, ComponentUpdateData> = new Map()
 export const HANDLERS: Map<string, Function> = new Map()
@@ -18,7 +17,7 @@ export class Application {
     /**
      * 启动框架
      */
-    public static async run(): Promise<any> {
+    public static run<T extends BaseServiceType = any>(serviceProto: ServiceProto<T>): WsServer<T> {
         // 载入所有代码
         new PathClassLoader().loadAll()
         // 1.创建上下文
@@ -26,7 +25,7 @@ export class Application {
 
         context.handlers = HANDLERS;
         // 2.配置处理
-        context.wsPort = 1101
+        context.wsPort = 3001
         // 2.1日志模块
         log4js.configure({
             appenders: {
@@ -41,21 +40,15 @@ export class Application {
         })
         context.tsgfLogger = log4js.getLogger('tsgf');
         context.logger = log4js.getLogger('default');
-        // 初始化编解码器
-        context.encoder = new JsonEncoder()
-        context.decoder = new JsonDecoder()
         // 3.启动网络模块
-        new WebSocket(context);
-        // 根据需要启动ecs的相关生命周期函数
-        setInterval(() => {
-            let now = Date.now();
-            all_ecs_update.forEach(value => {
-                if (value.lastUpdateTimestamp === undefined || now - value.lastUpdateTimestamp >= value.period) {
-                    value.lastUpdateTimestamp = now;
-                    value.update.call(undefined);
-                }
-            })
-        }, 10)
+        const server = new WsServer(serviceProto, {
+            port: 3001,
+            json: true
+        });
+        // 挂载入口函数
+        context.handlers.forEach((value, key, map) => {
+            server.implementApi(key, call => value(call))
+        })
         // 注册钩子函数
         process.on('exit', (code) => {
             context.logger.info(`About to exit with code: ${code}`)
@@ -65,8 +58,9 @@ export class Application {
             context.logger.info('接收到 SIGINT 信号，开始优雅停止...');
             process.exit(0);
         });
-        process.on('uncaughtException', (e)=>{
+        process.on('uncaughtException', (e) => {
             context.logger.error('system error', e)
         })
+        return server;
     }
 }
