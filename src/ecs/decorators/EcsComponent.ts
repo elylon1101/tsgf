@@ -5,6 +5,7 @@ import { ComponentUpdateData } from "../ComponentUpdateData";
 export function EcsComponent(): ClassDecorator {
     return function (target: Function) {
         let metadata: ComponentUpdateData = Reflect.getMetadata(MetadataKey.ECSComponentUpdate, target);
+        metadata.target = new target.prototype.constructor()
         all_ecs_update.set(target.constructor.name, metadata)
     }
 }

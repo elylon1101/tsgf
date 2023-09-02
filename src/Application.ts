@@ -55,7 +55,7 @@ export class Application {
             all_ecs_update.forEach(value => {
                 if (value.lastUpdateTimestamp === undefined || now - value.lastUpdateTimestamp >= value.period) {
                     value.lastUpdateTimestamp = now;
-                    value.update.call(undefined);
+                    value.update.call(value.target);
                 }
             })
         }, 10)

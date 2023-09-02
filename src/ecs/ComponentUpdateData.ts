@@ -10,6 +10,8 @@ export class ComponentUpdateData {
 
     public period: number;
 
+    public target: Function;
+
     constructor(update: Function, period: number) {
         this.update = update;
         this.period = period;
